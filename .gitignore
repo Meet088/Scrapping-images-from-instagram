@@ -1,0 +1,4 @@
+val/images/*
+train/captions_train2014.json
+val/captions_val2014.json
+
