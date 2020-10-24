@@ -63,7 +63,13 @@ class Config(object):
         self.eval_caption_file_unsplash = './data/unsplash/captions_unsplash2020.json'
         self.eval_result_dir_unsplash = './data/unsplash/results/'
         self.eval_result_file_unsplash = './data/unsplash/results.json'
-        self.save_eval_result_as_image = True
+        self.save_eval_result_as_image = False
+
+        self.eval_image_vizwiz = './data/vizwiz/images/'
+        self.eval_caption_file_vizwiz = './data/vizwiz/captions_vizwiz2020.json'
+        self.eval_result_dir_vizwiz = './data/vizwiz/results/'
+        self.eval_result_file_vizwiz = './data/vizwiz/results.json'
+        self.save_eval_result_as_image = False
 
         self.eval_result_dir = './val/results/'
         self.eval_result_file = './val/results.json'

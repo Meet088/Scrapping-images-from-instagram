@@ -5,3 +5,7 @@ models/289999.npy
 data/unsplash/images/*
 data/unsplash/captions_unsplash2020.json
 data/unsplash/results/*
+
+data/vizwiz/images/*
+data/vizwiz/captions_vizwiz2020.json
+data/vizwiz/results/*

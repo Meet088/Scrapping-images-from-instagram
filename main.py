@@ -65,6 +65,14 @@ def main(argv):
             tf.get_default_graph().finalize()
             model.eval_new_data(sess, coco, data, vocabulary,config.eval_result_dir_unsplash,config.eval_result_file_unsplash)
 
+        elif FLAGS.phase == 'test_new_data_vizwiz':
+            # evaluation phase
+            coco, data, vocabulary = prepare_eval_new_data(config.eval_caption_file_vizwiz,config.eval_image_vizwiz,config)
+            model = CaptionGenerator(config)
+            model.load(sess, FLAGS.model_file)
+            tf.get_default_graph().finalize()
+            model.eval_new_data(sess, coco, data, vocabulary,config.eval_result_dir_vizwiz,config.eval_result_file_vizwiz)
+
         else:
             # testing phase
             data, vocabulary = prepare_test_data(config)
