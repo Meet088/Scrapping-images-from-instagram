@@ -161,6 +161,28 @@ def prepare_eval_data(config):
     print("Dataset built.")
     return coco, dataset, vocabulary
 
+def prepare_eval_new_data(caption_file, image_dir, config):
+    """ Prepare the data for evaluating the model with new dataset. """
+    coco = COCO(caption_file)
+    image_ids = list(coco.imgs.keys())
+    image_files = [os.path.join(image_dir,
+                                coco.imgs[image_id]['file_name'])
+                                for image_id in image_ids]
+
+    print("Building the vocabulary...")
+    if os.path.exists(config.vocabulary_file):
+        vocabulary = Vocabulary(config.vocabulary_size,
+                                config.vocabulary_file)
+    else:
+        vocabulary = build_vocabulary(config)
+    print("Vocabulary built.")
+    print("Number of words = %d" %(vocabulary.size))
+
+    print("Building the dataset...")
+    dataset = DataSet(image_ids, image_files, config.batch_size)
+    print("Dataset built.")
+    return coco, dataset, vocabulary
+
 def prepare_test_data(config):
     """ Prepare the data for testing the model. """
     files = os.listdir(config.test_image_dir)

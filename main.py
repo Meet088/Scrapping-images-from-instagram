@@ -3,7 +3,7 @@ import tensorflow as tf
 
 from config import Config
 from model import CaptionGenerator
-from dataset import prepare_train_data, prepare_eval_data, prepare_test_data
+from dataset import prepare_train_data, prepare_eval_data, prepare_test_data, prepare_eval_new_data
 
 FLAGS = tf.app.flags.FLAGS
 
@@ -56,6 +56,14 @@ def main(argv):
             model.load(sess, FLAGS.model_file)
             tf.get_default_graph().finalize()
             model.eval(sess, coco, data, vocabulary)
+
+        elif FLAGS.phase == 'test_new_data':
+            # evaluation phase
+            coco, data, vocabulary = prepare_eval_new_data(config.eval_caption_file_unsplash,config.eval_image_unsplash,config)
+            model = CaptionGenerator(config)
+            model.load(sess, FLAGS.model_file)
+            tf.get_default_graph().finalize()
+            model.eval_new_data(sess, coco, data, vocabulary,config.eval_result_dir_unsplash,config.eval_result_file_unsplash)
 
         else:
             # testing phase

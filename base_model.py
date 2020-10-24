@@ -64,15 +64,63 @@ class BaseModel(object):
         train_writer.close()
         print("Training complete.")
 
+    def eval_new_data(self, sess, eval_gt_coco, eval_data, vocabulary,result_dir,result_file):
+        """ Evaluate the model using Unsplas 2020 data. """
+        print("Evaluating the model ...")
+        config = self.config
+
+        results = []
+        print('config.eval_new_result_dir:', result_dir)
+        if not os.path.exists(result_dir):
+            os.mkdir(result_dir)
+
+        # Generate the captions for the images
+        idx = 0
+        for k in tqdm(list(range(eval_data.num_batches)), desc='batch'):
+            batch = eval_data.next_batch()
+            caption_data = self.beam_search(sess, batch, vocabulary)
+
+            fake_cnt = 0 if k<eval_data.num_batches-1 \
+                         else eval_data.fake_count
+            for l in range(eval_data.batch_size-fake_cnt):
+                word_idxs = caption_data[l][0].sentence
+                score = caption_data[l][0].score
+                caption = vocabulary.get_sentence(word_idxs)
+                results.append({'image_id': eval_data.image_ids[idx].item(),
+                                'caption': caption})
+                idx += 1
+
+                # Save the result in an image file, if requested
+                if config.save_eval_result_as_image:
+                    image_file = batch[l]
+                    image_name = image_file.split(os.sep)[-1]
+                    image_name = os.path.splitext(image_name)[0]
+                    img = plt.imread(image_file)
+                    plt.imshow(img)
+                    plt.axis('off')
+                    plt.title(caption)
+                    plt.savefig(os.path.join(result_dir,
+                                             image_name+'_result.jpg'))
+
+        fp = open(result_file, 'w')
+        json.dump(results, fp)
+        fp.close()
+
+        # Evaluate these captions
+        eval_result_coco = eval_gt_coco.loadRes(result_file)
+        scorer = COCOEvalCap(eval_gt_coco, eval_result_coco)
+        scorer.evaluate()
+        print("Evaluation complete.")
+
     def eval(self, sess, eval_gt_coco, eval_data, vocabulary):
         """ Evaluate the model using the COCO val2014 data. """
         print("Evaluating the model ...")
         config = self.config
 
         results = []
-        print('config.eval_result_dir:', config.eval_result_dir)
-        if not os.path.exists(config.eval_result_dir):
-            os.mkdir(config.eval_result_dir)
+        print('config.eval_result_dir:', result_dir)
+        if not os.path.exists(result_dir):
+            os.mkdir(result_dir)
 
         # Generate the captions for the images
         idx = 0
@@ -111,6 +159,9 @@ class BaseModel(object):
         scorer = COCOEvalCap(eval_gt_coco, eval_result_coco)
         scorer.evaluate()
         print("Evaluation complete.")
+
+
+
 
     def test(self, sess, test_data, vocabulary):
         """ Test the model using any given images. """
