@@ -2,6 +2,7 @@ val/images/*
 train/captions_train2014.json
 val/captions_val2014.json
 models/289999.npy
+
 data/unsplash/images/*
 data/unsplash/captions_unsplash2020.json
 data/unsplash/results/*
@@ -9,3 +10,16 @@ data/unsplash/results/*
 data/vizwiz/images/*
 data/vizwiz/captions_vizwiz2020.json
 data/vizwiz/results/*
+
+data/vizwiz_train/images/*
+data/vizwiz_train/captions_vizwiz2020.json
+data/vizwiz_train/results/*
+
+data/instagram/images/*
+data/instagram/captions_vizwiz2020.json
+data/instagram/results/*
+
+data/google_top_n/images/*
+data/google_top_n/captions_vizwiz2020.json
+data/google_top_n/results/*
+data/google_top_n/Data Creation Scripts/caption_selected.txt

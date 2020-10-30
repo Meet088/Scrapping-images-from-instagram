@@ -63,17 +63,35 @@ class Config(object):
         self.eval_caption_file_unsplash = './data/unsplash/captions_unsplash2020.json'
         self.eval_result_dir_unsplash = './data/unsplash/results/'
         self.eval_result_file_unsplash = './data/unsplash/results.json'
-        self.save_eval_result_as_image = False
+        self.save_eval_result_as_image = True
 
         self.eval_image_vizwiz = './data/vizwiz/images/'
         self.eval_caption_file_vizwiz = './data/vizwiz/captions_vizwiz2020.json'
         self.eval_result_dir_vizwiz = './data/vizwiz/results/'
         self.eval_result_file_vizwiz = './data/vizwiz/results.json'
-        self.save_eval_result_as_image = False
+        self.save_eval_result_as_image = True
+
+        self.eval_image_vizwiz_train = './data/vizwiz_train/images/'
+        self.eval_caption_file_vizwiz_train = './data/vizwiz_train/captions_vizwiz2020.json'
+        self.eval_result_dir_vizwiz_train = './data/vizwiz_train/results/'
+        self.eval_result_file_vizwiz_train = './data/vizwiz_train/results.json'
+        self.save_eval_result_as_image = True
+
+        self.eval_image_insta = './data/instagram/images/'
+        self.eval_caption_file_insta = './data/instagram/captions_insta2020.json'
+        self.eval_result_dir_insta = './data/instagram/results/'
+        self.eval_result_file_insta = './data/instagram/results.json'
+        self.save_eval_result_as_image = True
+
+        self.eval_image_topN = './data/google_top_n/images/'
+        self.eval_caption_file_topN = './data/google_top_n/captions_topN2020.json'
+        self.eval_result_dir_topN = './data/google_top_n/results/'
+        self.eval_result_file_topN = './data/google_top_n/results.json'
+        self.save_eval_result_as_image = True
 
         self.eval_result_dir = './val/results/'
         self.eval_result_file = './val/results.json'
-        self.save_eval_result_as_image = False
+        self.save_eval_result_as_image = True
 
         # about the testing
         self.test_image_dir = './test/images/'

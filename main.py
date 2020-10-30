@@ -67,11 +67,28 @@ def main(argv):
 
         elif FLAGS.phase == 'test_new_data_vizwiz':
             # evaluation phase
-            coco, data, vocabulary = prepare_eval_new_data(config.eval_caption_file_vizwiz,config.eval_image_vizwiz,config)
+            coco, data, vocabulary = prepare_eval_new_data(config.eval_caption_file_vizwiz_train,config.eval_image_vizwiz_train,config)
             model = CaptionGenerator(config)
             model.load(sess, FLAGS.model_file)
             tf.get_default_graph().finalize()
-            model.eval_new_data(sess, coco, data, vocabulary,config.eval_result_dir_vizwiz,config.eval_result_file_vizwiz)
+            model.eval_new_data(sess, coco, data, vocabulary,config.eval_result_dir_vizwiz_train,config.eval_result_file_vizwiz_train)
+
+        elif FLAGS.phase == 'test_new_data_insta':
+            # evaluation phase
+            coco, data, vocabulary = prepare_eval_new_data(config.eval_caption_file_insta,config.eval_image_insta,config)
+            model = CaptionGenerator(config)
+            model.load(sess, FLAGS.model_file)
+            tf.get_default_graph().finalize()
+            model.eval_new_data(sess, coco, data, vocabulary,config.eval_result_dir_insta,config.eval_result_file_insta)
+
+        elif FLAGS.phase == 'test_new_data_google_top_n':
+            # evaluation phase
+            coco, data, vocabulary = prepare_eval_new_data(config.eval_caption_file_topN,config.eval_image_topN,config)
+            model = CaptionGenerator(config)
+            model.load(sess, FLAGS.model_file)
+            tf.get_default_graph().finalize()
+            model.eval_new_data(sess, coco, data, vocabulary,config.eval_result_dir_topN,config.eval_result_file_topN)
+
 
         else:
             # testing phase
